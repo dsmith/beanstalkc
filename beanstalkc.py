@@ -64,6 +64,7 @@ class Connection(object):
         self._socket.settimeout(self._connect_timeout)
         SocketError.wrap(self._socket.connect, (self.host, self.port))
         self._socket.settimeout(None)
+        self._socket.setsocketop(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
         self._socket_file = self._socket.makefile('rb')
 
     def close(self):
